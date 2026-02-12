@@ -1,89 +1,71 @@
+/* ===== ОСНОВА ===== */
 body {
     margin: 0;
-    padding: 0;
     overflow: hidden;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: #000 url("hl2_bg.jpg") center/cover no-repeat;
-    color: #fff;
+    font-family: "Tahoma", Arial, sans-serif;
+    background: #000;
+    color: #ff9f1a;
 }
 
-#overlay {
+/* ===== ФОН ===== */
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* 👈 ФОН ВЫШЕ ПОЛОСЫ */
+    background: url("hl2_bg.jpg") center/cover no-repeat;
+    filter: brightness(0.8);
+}
+
+.overlay {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.75);
+    background: radial-gradient(transparent, rgba(0,0,0,0.8));
 }
 
-/* ===== HUD игрока ===== */
-.player-hud {
-    position: absolute;
-    top: 25px;
-    right: 25px;
-    display: flex;
-    align-items: center;
-    background: rgba(20, 20, 20, 0.9);
-    border-left: 4px solid #00baff;
-    padding: 10px 14px;
-    box-shadow: 0 0 15px #000;
-}
-
-.player-hud img {
-    width: 64px;
-    height: 64px;
-    margin-right: 12px;
-    border: 2px solid #333;
-}
-
-.player-info {
-    text-align: left;
-}
-
-#player-name {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.player-sub {
-    font-size: 13px;
-    opacity: 0.7;
-}
-
-/* ===== ПРОГРЕСС ===== */
+/* ===== HUD ЗАГРУЗКИ ===== */
 .loader-container {
     position: absolute;
-    top: 50%;
+    bottom: 120px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     text-align: center;
 }
 
-.loader-bar-bg {
-    width: 720px;
-    height: 26px;
-    background: #222;
-    border-radius: 4px;
-    overflow: hidden;
-    box-shadow: 0 0 20px #000;
-}
-
+/* Полоса */
 .loader-bar {
+    width: 700px;
+    height: 16px;
+    background: rgba(255, 140, 0, 0.15);
+    border: 1px solid rgba(255, 140, 0, 0.6);
+    overflow: hidden;
+}
+
+/* Анимация Source HUD */
+.loader-anim {
+    width: 200%;
     height: 100%;
-    width: 0;
-    background: linear-gradient(90deg, #00baff, #0056ff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: width 0.15s ease;
+    background: repeating-linear-gradient(
+        -45deg,
+        rgba(255,140,0,0.9) 0px,
+        rgba(255,140,0,0.9) 10px,
+        rgba(255,140,0,0.2) 10px,
+        rgba(255,140,0,0.2) 20px
+    );
+    animation: move 1.2s linear infinite;
 }
 
-#percent {
-    font-size: 15px;
-    font-weight: bold;
-    text-shadow: 0 0 6px #000;
+@keyframes move {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
 }
 
+/* Текст */
 .loader-text {
-    margin-top: 14px;
-    font-size: 20px;
-    opacity: 0.9;
+    margin-top: 12px;
+    font-size: 18px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 6px #000;
 }
