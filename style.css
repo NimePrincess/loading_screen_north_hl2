@@ -1,127 +1,69 @@
+@font-face {
+    font-family: "Combine";
+    src: url("https://fonts.cdnfonts.com/s/14961/Combine.woff") format("woff");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html, body {
     width: 100%;
     height: 100%;
-}
-
-body {
-    margin: 0;
     overflow: hidden;
-    background: #000;
-    font-family: Tahoma, Arial, sans-serif;
-    color: #ff9f1a;
+    font-family: "Combine", Arial, sans-serif;
 }
 
-/* ===== ФОН (МОЖНО ЗАМЕНИТЬ hl2_bg.jpg) ===== */
+/* ФОН */
 .background {
-    position: absolute;
-    inset: 0;
-    background: url("hl2_bg.jpg") center / cover no-repeat;
-    filter: brightness(0.65);
-    transition: opacity 1s ease;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url("background.jpg") center/cover no-repeat;
+    filter: brightness(0.4);
 }
 
 /* Затемнение */
 .overlay {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-        circle at center,
-        transparent 40%,
-        rgba(0,0,0,0.85) 100%
-    );
-    transition: opacity 1s ease;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* ===== Combine сканлайны (очень аккуратно) ===== */
-.scanlines {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: repeating-linear-gradient(
-        to bottom,
-        rgba(255,140,0,0.04) 0px,
-        rgba(255,140,0,0.04) 1px,
-        transparent 1px,
-        transparent 3px
-    );
-    mix-blend-mode: overlay;
-    opacity: 0.35;
-    transition: opacity 1s ease;
+/* КОНТЕЙНЕР */
+.loading-container {
+    text-align: center;
+    width: 50%;
+    min-width: 300px;
 }
 
-/* ===== HUD ===== */
-.loader-container {
-    position: absolute;
-    bottom: 140px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    opacity: 0;
-    transition: all 0.6s ease;
+/* БАР */
+.bar {
+    width: 100%;
+    height: 14px;
+    border: 1px solid #ffffff;
+    padding: 2px;
 }
 
-.loader-container.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
-.loader-container.hide {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-20px);
-}
-
-/* ===== Combine Bar ===== */
-.loader-bar {
-    width: 720px;
-    height: 18px;
-    background: rgba(255,140,0,0.08);
-    border: 1px solid rgba(255,140,0,0.6);
-    box-shadow: 0 0 15px rgba(255,140,0,0.5);
-    overflow: hidden;
-}
-
-.loader-fill {
+.progress {
     width: 0%;
     height: 100%;
-    position: relative;
-    background: linear-gradient(
-        90deg,
-        rgba(255,120,0,0.85),
-        rgba(255,200,0,1)
-    );
-    box-shadow: 0 0 18px rgba(255,160,0,1);
-    transition: width 0.15s linear;
+    background: #ffffff;
+    transition: width 0.2s linear;
 }
 
-/* Source анимация */
-.loader-stripes {
-    position: absolute;
-    width: 200%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        -45deg,
-        rgba(255,255,255,0.15) 0px,
-        rgba(255,255,255,0.15) 6px,
-        transparent 6px,
-        transparent 12px
-    );
-    animation: stripesMove 1s linear infinite;
-}
-
-@keyframes stripesMove {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-}
-
-/* ===== Текст ===== */
-.loader-text {
-    margin-top: 15px;
-    text-align: center;
-    font-size: 18px;
-    letter-spacing: 1px;
-    text-shadow: 0 0 6px #000;
-}
-
-/* Fade */
-.fade-out {
-    opacity: 0;
+/* ТЕКСТ */
+.label {
+    margin-top: 12px;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: white;
+    text-transform: uppercase;
+    opacity: 0.85;
 }

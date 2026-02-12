@@ -1,79 +1,23 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>HL2 RP Loading</title>
-
-<!-- Убираем стандартный GMod bar -->
-<style>
-#progress, #status, #loading, .loading {
-    display: none !important;
-}
-</style>
-
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Loading...</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="background"></div>
-<div class="overlay"></div>
-<div class="scanlines"></div>
 
-<div class="loader-container">
-    <div class="loader-bar">
-        <div class="loader-fill" id="loader-fill">
-            <div class="loader-stripes"></div>
+<div class="overlay">
+    <div class="loading-container">
+        <div class="bar">
+            <div class="progress" id="progress"></div>
         </div>
-    </div>
-
-    <div class="loader-text">
-        <span id="loading-text">Прогресс загрузки...</span>
+        <div class="label">ПРОГРЕСС ЗАГРУЗКИ</div>
     </div>
 </div>
 
-<script>
-let appeared = false;
-let hidden = false;
-
-const container = document.querySelector(".loader-container");
-const background = document.querySelector(".background");
-const overlay = document.querySelector(".overlay");
-const scanlines = document.querySelector(".scanlines");
-const fill = document.getElementById("loader-fill");
-const text = document.getElementById("loading-text");
-
-function animateText() {
-    let dots = 0;
-    setInterval(() => {
-        dots = (dots + 1) % 4;
-        text.textContent = "Прогресс загрузки" + ".".repeat(dots);
-    }, 500);
-}
-animateText();
-
-function updateProgress() {
-    if (typeof GetLoadProgress === "function") {
-        const progress = GetLoadProgress();
-        fill.style.width = (progress * 100) + "%";
-
-        if (progress > 0.01 && !appeared) {
-            appeared = true;
-            container.classList.add("show");
-        }
-
-        if (progress >= 1 && !hidden) {
-            hidden = true;
-
-            container.classList.add("hide");
-            background.classList.add("fade-out");
-            overlay.classList.add("fade-out");
-            scanlines.classList.add("fade-out");
-        }
-    }
-    requestAnimationFrame(updateProgress);
-}
-updateProgress();
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
