@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Прогресс загрузки...</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="overlay"></div>
+
+    <div class="loader-container">
+        <div class="loader-bar-bg">
+            <div class="loader-bar"></div>
+        </div>
+        <div id="loader-text">Прогресс загрузки...</div>
+    </div>
+
+    <script>
+        const bar = document.querySelector(".loader-bar");
+        let progress = 0;
+
+        function animateProgress() {
+            if (progress < 100) {
+                progress++;
+                bar.style.width = progress + "%";
+                requestAnimationFrame(animateProgress);
+            }
+        }
+        animateProgress();
+    </script>
+</body>
+</html>
