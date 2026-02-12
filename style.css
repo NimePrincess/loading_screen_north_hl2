@@ -154,182 +154,6 @@ html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; back
 }
 #terminalHud{ animation: flicker 5.5s infinite; }
 
-/* ===== GMOD VANILLA-LIKE PROGRESS (OVERLAY) ===== */
-#gmodProgress{
-  position:absolute;
-  left:0; right:0; bottom:0;
-  z-index:9999;              /* перекрывает всё */
-  padding: 14px 22px 16px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.72) 35%, rgba(0,0,0,0.86));
-  backdrop-filter: blur(4px);
-}
-
-.gp-top{
-  display:flex;
-  align-items:baseline;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:10px;
-}
-
-.gp-title{
-  font: 800 12px/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  letter-spacing:.18em;
-  color: rgba(170,255,190,0.92);
-  text-transform: uppercase;
-}
-
-.gp-percent{
-  font: 700 12px/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  letter-spacing:.10em;
-  color: rgba(170,255,190,0.78);
-}
-
-.gp-bar{
-  position:relative;
-  height: 10px;
-  border-radius: 999px;
-  overflow:hidden;
-  border: 1px solid rgba(170,255,190,0.28);
-  background: rgba(0,0,0,0.55);
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.55) inset, 0 0 22px rgba(140,255,190,0.10);
-}
-
-.gp-fill{
-  position:absolute;
-  top:0; left:0;
-  height:100%;
-  width:0%;
-  background: linear-gradient(90deg,
-    rgba(120,255,170,0.15),
-    rgba(170,255,190,0.90),
-    rgba(120,255,170,0.35)
-  );
-  filter: saturate(110%);
-  transition: width 120ms linear;
-}
-
-.gp-glow{
-  position:absolute; inset:0;
-  background: radial-gradient(circle at 35% 50%, rgba(170,255,190,0.18), transparent 55%);
-  mix-blend-mode: screen;
-  pointer-events:none;
-}
-
-.gp-bottom{
-  margin-top:10px;
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-
-.gp-status{
-  font: 600 12px/1.25 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  color: rgba(220,255,235,0.90);
-  text-shadow: 0 0 10px rgba(140,255,190,0.12);
-}
-
-.gp-file{
-  font: 500 11px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  color: rgba(170,255,190,0.65);
-  max-width: 92vw;
-  overflow:hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* ===== PLAYER HUD (военный стиль) ===== */
-#playerHud{
- position:absolute;
- right:35px;
- top:30px;
- z-index:9000;
- pointer-events:none;
- font-family:Consolas,monospace;
-}
-
-.ph-frame{
- display:flex;
- align-items:center;
- gap:14px;
-
- padding:12px 16px;
- border:1px solid rgba(120,255,170,0.35);
- border-radius:12px;
-
- background:linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.25));
- backdrop-filter: blur(6px);
-
- box-shadow:
- 0 0 20px rgba(120,255,170,0.08),
- inset 0 0 12px rgba(120,255,170,0.08);
-}
-
-#phAvatar{
- width:64px;
- height:64px;
- border-radius:10px;
- border:1px solid rgba(120,255,170,0.5);
- box-shadow:0 0 12px rgba(120,255,170,0.25);
-}
-
-.ph-info{
- display:flex;
- flex-direction:column;
- gap:4px;
-}
-
-.ph-name{
- font-size:16px;
- color:#baffd0;
- text-shadow:0 0 8px rgba(120,255,170,0.4);
- letter-spacing:1px;
-}
-
-.ph-steam{
- font-size:12px;
- color:#7cffb2;
- opacity:.8;
-}
-
-/* ===== CONNECT SYSTEM HUD ===== */
-#connectHud{
- position:absolute;
- right:35px;
- top:130px; /* под аватаркой */
- z-index:9000;
- pointer-events:none;
- font-family:Consolas,monospace;
- width:260px;
-}
-
-.ch-frame{
- padding:12px 14px;
- border:1px solid rgba(120,255,170,0.35);
- border-radius:12px;
- background:linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.25));
- backdrop-filter: blur(6px);
- box-shadow:
- 0 0 20px rgba(120,255,170,0.08),
- inset 0 0 12px rgba(120,255,170,0.08);
-}
-
-.ch-title{
- font-size:13px;
- letter-spacing:2px;
- margin-bottom:8px;
- color:#8affc1;
- opacity:.9;
-}
-
-.ch-log{
- font-size:12px;
- color:#baffd0;
- line-height:1.4;
- text-shadow:0 0 6px rgba(120,255,170,0.35);
- min-height:80px;
-}
-
 /* Прячем всё, что GMod мог добавить в body, кроме нашего контейнера */
 body > :not(#loading){
   display: none !important;
@@ -345,4 +169,83 @@ body > :not(#loading){
   display: none !important;
   opacity: 0 !important;
   visibility: hidden !important;
+}
+
+/* ============================= */
+/* PROJECT RIGHT HUD */
+/* ============================= */
+
+#projectHud{
+  position:absolute;
+  right:40px;
+  top:40px;
+  z-index:9000;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:18px;
+  pointer-events:none;
+  font-family:Consolas, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+.projectTitle{
+  font: 800 22px/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  letter-spacing:.14em;
+  color: rgba(255,255,255,0.96);
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.32),
+    0 0 26px rgba(255,255,255,0.14);
+  animation: npGlitch 2.6s infinite;
+  text-transform: uppercase;
+}
+
+@keyframes npGlitch{
+  0%{ transform: translate(0,0); filter:none; opacity:0.95; }
+  10%{ transform: translate(-1px,1px); }
+  18%{ transform: translate(1px,-1px); }
+  26%{ transform: translate(-2px,0px); }
+  34%{ transform: translate(2px,1px); }
+  42%{ transform: translate(-1px,-1px); }
+  50%{ transform: translate(0,0); opacity:0.88; }
+  58%{ transform: translate(1px,0px); }
+  66%{ transform: translate(-1px,1px); }
+  74%{ transform: translate(2px,-1px); }
+  82%{ transform: translate(-2px,1px); }
+  100%{ transform: translate(0,0); opacity:0.95; }
+}
+
+.adminBox{
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  width: 330px;
+  padding:14px 16px;
+  border-radius:14px;
+
+  background: rgba(120,120,120,0.16);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+
+  box-shadow:
+    0 0 18px rgba(0,0,0,0.42),
+    inset 0 0 12px rgba(255,255,255,0.05);
+}
+
+.adminAvatar{
+  width:64px;
+  height:64px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.22);
+  box-shadow: 0 0 14px rgba(255,255,255,0.10);
+  object-fit: cover;
+}
+
+.adminLabel{
+  font: 800 16px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  letter-spacing:.10em;
+  color: rgba(255, 214, 102, 0.98);
+  text-shadow:
+    0 0 10px rgba(255, 214, 102, 0.40),
+    0 0 22px rgba(255, 214, 102, 0.22);
 }

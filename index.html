@@ -17,21 +17,6 @@
 }
 </style>
   <div id="loading">
-    <div id="playerHud">
-  <div class="ph-frame">
-    <img id="phAvatar" src="" />
-    <div class="ph-info">
-      <div class="ph-name" id="phName">Загрузка профиля...</div>
-      <div class="ph-steam" id="phSteam">STEAMID: ...</div>
-    </div>
-  </div>
-</div>
-<div id="connectHud">
-  <div class="ch-frame">
-    <div class="ch-title">СИСТЕМА</div>
-    <div class="ch-log" id="connectLog"></div>
-  </div>
-</div>
     <!-- фон -->
     <div class="bg"></div>
 
@@ -44,6 +29,18 @@
     <!-- правый “жар/пыль/свечение” + искры -->
     <canvas id="rightFx"></canvas>
 
+    <!-- RIGHT TOP PROJECT HUD -->
+    <div id="projectHud">
+      <div class="projectTitle">Northern Project | HL2RP</div>
+
+      <div class="adminBox">
+        <img class="adminAvatar" src="https://i.yapx.ru/c6LdS.jpg" alt="avatar" />
+        <div class="adminInfo">
+          <div class="adminLabel">Endministrator</div>
+        </div>
+      </div>
+    </div>
+
     <div id="terminalHud">
   <div class="bar">
     <div class="title">ТАКТИЧЕСКИЙ КАНАЛ // СЕВЕР</div>
@@ -52,34 +49,14 @@
   <div class="log" id="termLog"></div>
 </div>
 
-<div id="gmodProgress">
-  <div class="gp-top">
-    <div class="gp-title" id="gpTitle">CONNECTING</div>
-    <div class="gp-percent" id="gpPercent">0%</div>
-  </div>
-
-  <div class="gp-bar">
-    <div class="gp-fill" id="gpFill"></div>
-    <div class="gp-glow"></div>
-  </div>
-
-  <div class="gp-bottom">
-    <div class="gp-status" id="gpStatus">Загрузка ресурсов…</div>
-    <div class="gp-file" id="gpFile">—</div>
-  </div>
-</div>
-
   </div>
 
   <script src="smoke3d.js"></script>
   <script src="matrix.js"></script>
   <script src="terminal.js"></script>
   <script src="rightfx.js"></script>
-  <script src="gmod_progress.js"></script>
-  <script src="audio.js"></script>
-  <script src="player.js"></script>
-  <script src="connect.js"></script>
-  <script>
+<script src="audio.js"></script>
+<script>
   // Удаляем любые чужие блоки, которые могут появляться позже
   setInterval(() => {
     document.querySelectorAll("body > :not(#loading)").forEach(el => el.remove());
