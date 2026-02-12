@@ -2,31 +2,54 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Прогресс загрузки...</title>
+    <title>Загрузка...</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="overlay"></div>
 
-    <div class="loader-container">
-        <div class="loader-bar-bg">
-            <div class="loader-bar"></div>
-        </div>
-        <div id="loader-text">Прогресс загрузки...</div>
+<div id="overlay"></div>
+
+<!-- HUD игрока (справа сверху) -->
+<div class="player-hud">
+    <img id="avatar" src="" alt="avatar">
+    <div class="player-info">
+        <div id="player-name">Подключение...</div>
+        <div class="player-sub">Загрузка профиля</div>
     </div>
+</div>
 
-    <script>
-        const bar = document.querySelector(".loader-bar");
-        let progress = 0;
+<!-- Прогресс по центру -->
+<div class="loader-container">
+    <div class="loader-bar-bg">
+        <div class="loader-bar" id="bar">
+            <span id="percent">0%</span>
+        </div>
+    </div>
+    <div class="loader-text">Прогресс загрузки...</div>
+</div>
 
-        function animateProgress() {
-            if (progress < 100) {
-                progress++;
-                bar.style.width = progress + "%";
-                requestAnimationFrame(animateProgress);
-            }
+<script>
+    // ===== ПРОГРЕСС ЗАГРУЗКИ GMOD =====
+    function updateProgress() {
+        if (typeof GetLoadProgress === "function") {
+            let progress = Math.floor(GetLoadProgress() * 100);
+            document.getElementById("bar").style.width = progress + "%";
+            document.getElementById("percent").innerText = progress + "%";
         }
-        animateProgress();
-    </script>
+        requestAnimationFrame(updateProgress);
+    }
+    updateProgress();
+
+    // ===== ИНФОРМАЦИЯ ИГРОКА =====
+    function GameDetails(servername, serverurl, mapname, maxplayers, steamid, gamemode) {
+        document.getElementById("player-name").innerText = "Steam ID:";
+        document.getElementById("player-sub").innerText = steamid;
+
+        // Steam avatar (работает стабильно)
+        document.getElementById("avatar").src =
+            "https://steamcommunity.com/profiles/" + steamid + "/?avatar=medium";
+    }
+</script>
+
 </body>
 </html>
