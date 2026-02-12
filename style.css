@@ -1,69 +1,93 @@
-@font-face {
-    font-family: "Combine";
-    src: url("https://fonts.cdnfonts.com/s/14961/Combine.woff") format("woff");
+body,html{
+margin:0;
+padding:0;
+overflow:hidden;
+background:black;
+font-family:Arial;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+#loading{
+position:relative;
+width:100vw;
+height:100vh;
+overflow:hidden;
 }
 
-html, body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    font-family: "Combine", Arial, sans-serif;
+/* фон */
+.bg{
+position:absolute;
+width:100%;
+height:100%;
+background:url("background.jpg") center/cover no-repeat;
+z-index:1;
 }
 
-/* ФОН */
-.background {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: url("background.jpg") center/cover no-repeat;
-    filter: brightness(0.4);
+/* дым слева */
+.smoke-left{
+position:absolute;
+left:0;
+top:0;
+width:40%;
+height:100%;
+background:url("https://i.imgur.com/OZaT7jl.png");
+background-size:cover;
+opacity:0.55;
+mix-blend-mode:screen;
+animation:smokeMove 60s linear infinite;
+z-index:3;
 }
 
-/* Затемнение */
-.overlay {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.45);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* пыль справа */
+.dust-right{
+position:absolute;
+right:0;
+top:0;
+width:40%;
+height:100%;
+background:url("https://i.imgur.com/t5H7KQF.png");
+background-size:cover;
+opacity:0.55;
+mix-blend-mode:screen;
+animation:dustMove 80s linear infinite;
+z-index:3;
 }
 
-/* КОНТЕЙНЕР */
-.loading-container {
-    text-align: center;
-    width: 50%;
-    min-width: 300px;
+@keyframes smokeMove{
+0%{transform:translateY(0)}
+100%{transform:translateY(-400px)}
 }
 
-/* БАР */
-.bar {
-    width: 100%;
-    height: 14px;
-    border: 1px solid #ffffff;
-    padding: 2px;
+@keyframes dustMove{
+0%{transform:translateY(0)}
+100%{transform:translateY(-600px)}
 }
 
-.progress {
-    width: 0%;
-    height: 100%;
-    background: #ffffff;
-    transition: width 0.2s linear;
+/* матрица коды */
+#matrix{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:2;
+opacity:0.15;
 }
 
-/* ТЕКСТ */
-.label {
-    margin-top: 12px;
-    font-size: 14px;
-    letter-spacing: 3px;
-    color: white;
-    text-transform: uppercase;
-    opacity: 0.85;
+/* правый эффект */
+.right-glow{
+position:absolute;
+right:0;
+top:0;
+width:35%;
+height:100%;
+background:linear-gradient(to left, rgba(255,140,0,0.35), transparent);
+mix-blend-mode:screen;
+animation:pulse 4s infinite;
+z-index:4;
+}
+
+@keyframes pulse{
+0%{opacity:.3}
+50%{opacity:.6}
+100%{opacity:.3}
 }

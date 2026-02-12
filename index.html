@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Loading...</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Loading</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="background"></div>
+<div id="loading">
 
-<div class="overlay">
-    <div class="loading-container">
-        <div class="bar">
-            <div class="progress" id="progress"></div>
-        </div>
-        <div class="label">ПРОГРЕСС ЗАГРУЗКИ</div>
-    </div>
+    <!-- фон -->
+    <div class="bg"></div>
+
+    <!-- дым слева -->
+    <div class="smoke-left"></div>
+
+    <!-- пыль справа -->
+    <div class="dust-right"></div>
+
+    <!-- падающие коды -->
+    <canvas id="matrix"></canvas>
+
+    <!-- правый эффект -->
+    <div class="right-glow"></div>
+
 </div>
 
-<script src="script.js"></script>
+<script src="matrix.js"></script>
 </body>
 </html>
