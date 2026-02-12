@@ -7,28 +7,34 @@
 </head>
 <body>
 
-<!-- ФОН (ВЫШЕ ПОЛОСЫ) -->
+<!-- Скрываем стандартный GMod progress -->
+<style>
+    #progress, #status {
+        display: none !important;
+    }
+</style>
+
 <div class="background"></div>
 <div class="overlay"></div>
 
-<!-- HUD ЗАГРУЗКИ -->
 <div class="loader-container">
     <div class="loader-bar">
-        <div class="loader-anim"></div>
+        <div class="loader-fill" id="loader-fill">
+            <div class="loader-stripes"></div>
+        </div>
     </div>
     <div class="loader-text">Прогресс загрузки...</div>
 </div>
 
 <script>
-    // Реальный прогресс GMod
-    function updateProgress() {
-        if (typeof GetLoadProgress === "function") {
-            const progress = GetLoadProgress();
-            document.querySelector(".loader-bar").style.width = (progress * 700) + "px";
-        }
-        requestAnimationFrame(updateProgress);
+function updateProgress() {
+    if (typeof GetLoadProgress === "function") {
+        const progress = GetLoadProgress(); // 0.0 - 1.0
+        document.getElementById("loader-fill").style.width = (progress * 100) + "%";
     }
-    updateProgress();
+    requestAnimationFrame(updateProgress);
+}
+updateProgress();
 </script>
 
 </body>

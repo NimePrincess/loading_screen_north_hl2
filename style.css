@@ -1,31 +1,28 @@
-/* ===== ОСНОВА ===== */
 body {
     margin: 0;
     overflow: hidden;
-    font-family: "Tahoma", Arial, sans-serif;
     background: #000;
+    font-family: Tahoma, Arial, sans-serif;
     color: #ff9f1a;
 }
 
 /* ===== ФОН ===== */
 .background {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%; /* 👈 ФОН ВЫШЕ ПОЛОСЫ */
+    height: 65%;
     background: url("hl2_bg.jpg") center/cover no-repeat;
-    filter: brightness(0.8);
+    filter: brightness(0.75);
 }
 
 .overlay {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: radial-gradient(transparent, rgba(0,0,0,0.8));
+    background: radial-gradient(transparent, rgba(0,0,0,0.85));
 }
 
-/* ===== HUD ЗАГРУЗКИ ===== */
+/* ===== ЗАГРУЗКА ===== */
 .loader-container {
     position: absolute;
     bottom: 120px;
@@ -34,38 +31,51 @@ body {
     text-align: center;
 }
 
-/* Полоса */
 .loader-bar {
     width: 700px;
-    height: 16px;
-    background: rgba(255, 140, 0, 0.15);
+    height: 18px;
+    background: rgba(255, 120, 0, 0.08);
     border: 1px solid rgba(255, 140, 0, 0.6);
+    box-shadow: 0 0 10px rgba(255,140,0,0.4);
     overflow: hidden;
 }
 
-/* Анимация Source HUD */
-.loader-anim {
+/* Реальное заполнение */
+.loader-fill {
+    height: 100%;
+    width: 0%;
+    position: relative;
+    background: linear-gradient(
+        90deg,
+        rgba(255,120,0,0.8),
+        rgba(255,170,0,1)
+    );
+    box-shadow: 0 0 12px rgba(255,150,0,0.9);
+    transition: width 0.2s ease;
+}
+
+/* Анимированные полосы внутри */
+.loader-stripes {
+    position: absolute;
     width: 200%;
     height: 100%;
     background: repeating-linear-gradient(
         -45deg,
-        rgba(255,140,0,0.9) 0px,
-        rgba(255,140,0,0.9) 10px,
-        rgba(255,140,0,0.2) 10px,
-        rgba(255,140,0,0.2) 20px
+        rgba(255,255,255,0.15) 0px,
+        rgba(255,255,255,0.15) 6px,
+        transparent 6px,
+        transparent 12px
     );
-    animation: move 1.2s linear infinite;
+    animation: stripeMove 1s linear infinite;
 }
 
-@keyframes move {
+@keyframes stripeMove {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
 }
 
-/* Текст */
 .loader-text {
     margin-top: 12px;
     font-size: 18px;
     letter-spacing: 1px;
-    text-shadow: 0 0 6px #000;
 }
