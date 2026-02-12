@@ -1,29 +1,16 @@
-// данные игрока приходят из Garry's Mod
-window.GameDetails = function(servername, serverurl, mapname, maxplayers, steamid, gamemode){
+window.GameDetails = function(servername, serverurl, mapname, maxplayers, steamid){
 
- // ник
- document.getElementById("phName").textContent = servername 
-   ? "Подключение..."
-   : "Игрок подключается";
+const avatar = document.getElementById("phAvatar");
+const nameEl = document.getElementById("phName");
+const steamEl = document.getElementById("phSteam");
 
- // steamid
- document.getElementById("phSteam").textContent = "STEAMID: " + steamid;
+nameEl.textContent = "Подключение...";
+steamEl.textContent = "STEAMID: " + steamid;
 
- // аватар через steam api
- if(steamid){
-   fetch("https://steamcommunity.com/profiles/"+steamid+"?xml=1")
-   .then(r=>r.text())
-   .then(str=>{
-      const xml = new DOMParser().parseFromString(str,"text/xml");
-      const avatar = xml.querySelector("avatarFull");
-      const name = xml.querySelector("steamID");
-
-      if(avatar){
-        document.getElementById("phAvatar").src = avatar.textContent;
-      }
-      if(name){
-        document.getElementById("phName").textContent = name.textContent;
-      }
-   }).catch(()=>{});
- }
+// ⚡ правильный способ аватара
+// gmod передает steamid64 → можно взять аватар через steam CDN
+if(steamid){
+const avatarUrl = "https://avatars.steamstatic.com/" + steamid + "_full.jpg";
+avatar.src = avatarUrl;
+}
 };

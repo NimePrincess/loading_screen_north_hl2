@@ -8,6 +8,14 @@
 </head>
 
 <body>
+  <style>
+#defaultLoading,
+.loading,
+#loadingPanel,
+#background {
+ display:none !important;
+}
+</style>
   <div id="loading">
     <div id="playerHud">
   <div class="ph-frame">
@@ -71,5 +79,11 @@
   <script src="audio.js"></script>
   <script src="player.js"></script>
   <script src="connect.js"></script>
+  <script>
+  // Удаляем любые чужие блоки, которые могут появляться позже
+  setInterval(() => {
+    document.querySelectorAll("body > :not(#loading)").forEach(el => el.remove());
+  }, 300);
+</script>
 </body>
 </html>

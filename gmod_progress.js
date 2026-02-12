@@ -1,53 +1,49 @@
 (() => {
-  const fill = document.getElementById("gpFill");
-  const percentEl = document.getElementById("gpPercent");
-  const statusEl = document.getElementById("gpStatus");
-  const fileEl = document.getElementById("gpFile");
-  const titleEl = document.getElementById("gpTitle");
+const fill = document.getElementById("gpFill");
+const percentEl = document.getElementById("gpPercent");
+const statusEl = document.getElementById("gpStatus");
+const fileEl = document.getElementById("gpFile");
+const titleEl = document.getElementById("gpTitle");
 
-  let total = 0;
-  let needed = 0;
+let total = 0;
+let needed = 0;
 
-  function clamp01(x){ return Math.max(0, Math.min(1, x)); }
+function update(){
+if(total <= 0){
+fill.style.width = "0%";
+percentEl.textContent = "0%";
+return;
+}
 
-  function updateProgress(){
-    if(!total || total <= 0){
-      fill.style.width = "0%";
-      percentEl.textContent = "0%";
-      return;
-    }
-    const done = total - needed;
-    const p = clamp01(done / total);
-    const pct = Math.floor(p * 100);
-    fill.style.width = pct + "%";
-    percentEl.textContent = pct + "%";
-  }
+```
+const done = Math.max(0, total - needed);
+const pct = Math.floor((done / total) * 100);
 
-  // ===== GMOD callbacks (Facepunch Wiki) =====
-  window.GameDetails = function(servername, serverurl, mapname, maxplayers, steamid, gamemode, volume, language){
-    // можно вывести сервер/карту, но аккуратно
-    titleEl.textContent = (servername ? "CONNECTING: " + servername : "CONNECTING");
-  };
+fill.style.width = pct + "%";
+percentEl.textContent = pct + "%";
+```
 
-  window.SetFilesTotal = function(t){
-    total = Number(t) || 0;
-    updateProgress();
-  };
+}
 
-  window.SetFilesNeeded = function(n){
-    needed = Number(n) || 0;
-    updateProgress();
-  };
+window.GameDetails = function(servername){
+titleEl.textContent = servername ? "CONNECTING: " + servername : "CONNECTING";
+};
 
-  window.DownloadingFile = function(fileName){
-    fileEl.textContent = fileName || "—";
-  };
+window.SetFilesTotal = function(t){
+total = Number(t) || 0;
+update();
+};
 
-  window.SetStatusChanged = function(status){
-    statusEl.textContent = status || "Загрузка…";
-  };
+window.SetFilesNeeded = function(n){
+needed = Number(n) || 0;
+update();
+};
 
-  // На случай если что-то не приходит — базовый текст
-  statusEl.textContent = "Загрузка ресурсов…";
-  fileEl.textContent = "—";
+window.DownloadingFile = function(file){
+fileEl.textContent = file || "—";
+};
+
+window.SetStatusChanged = function(status){
+statusEl.textContent = status || "Загрузка...";
+};
 })();

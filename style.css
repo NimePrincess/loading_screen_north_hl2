@@ -329,3 +329,20 @@ html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; back
  text-shadow:0 0 6px rgba(120,255,170,0.35);
  min-height:80px;
 }
+
+/* Прячем всё, что GMod мог добавить в body, кроме нашего контейнера */
+body > :not(#loading){
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* На всякий случай — типичные “ванильные” id/классы */
+#loadingBackground, #background, #defaultLoading, #loadingPanel,
+#progress, #progressbar, #progressBar, #status, #statusText,
+.loading, .Loading, .loadingPanel, .progress, .progressBar {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
