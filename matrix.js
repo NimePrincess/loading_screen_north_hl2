@@ -1,32 +1,63 @@
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
+(() => {
+  const mCanvas = document.getElementById("matrix");
+  const mCtx = mCanvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+  function resize(){
+    mCanvas.width = window.innerWidth;
+    mCanvas.height = window.innerHeight;
+  }
+  window.addEventListener("resize", resize);
+  resize();
 
-const letters = "01АБВГДЕЖЗCOMMANDNORTHRUSSIA";
-const fontSize = 18;
-const columns = canvas.width/fontSize;
+  const phrases = [
+    "Груз потерян... возвращаемся на базу... конец связи...",
+    "Северный Союз на связь...",
+    "ГО штурмуют объект!",
+    "Видишь сопротивление? а оно должно быть...",
+    "Доложите статус груза... повторяю..."
+  ];
 
-const drops=[];
-for(let x=0;x<columns;x++) drops[x]=1;
+  const fontSize = 18;
+  const leftWidth = () => Math.floor(mCanvas.width * 0.32); // зона слева
 
-function draw(){
-ctx.fillStyle="rgba(0,0,0,0.05)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
+  function makeDrops(){
+    const cols = Math.max(8, Math.floor(leftWidth() / fontSize));
+    return Array.from({length: cols}, () => Math.random() * (mCanvas.height/fontSize));
+  }
+  let drops = makeDrops();
 
-ctx.fillStyle="#8aff8a";
-ctx.font=fontSize+"px monospace";
+  window.addEventListener("resize", () => { drops = makeDrops(); });
 
-for(let i=0;i<drops.length;i++){
-const text=letters[Math.floor(Math.random()*letters.length)];
-ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+  function draw(){
+    // рисуем ТОЛЬКО слева: клип-регион
+    const lw = leftWidth();
 
-if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
-drops[i]=0;
+    mCtx.save();
+    mCtx.beginPath();
+    mCtx.rect(0, 0, lw, mCanvas.height);
+    mCtx.clip();
 
-drops[i]++;
-}
-}
+    mCtx.fillStyle = "rgba(0,0,0,0.06)";
+    mCtx.fillRect(0, 0, lw, mCanvas.height);
 
-setInterval(draw,35);
+    mCtx.fillStyle = "#8aff8a";
+    mCtx.font = fontSize + "px monospace";
+
+    for(let i=0; i<drops.length; i++){
+      const phrase = phrases[(Math.random()*phrases.length)|0];
+      const ch = phrase[(Math.random()*phrase.length)|0];
+
+      const x = i * fontSize;
+      const y = drops[i] * fontSize;
+
+      mCtx.fillText(ch, x, y);
+
+      if(y > mCanvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i] += 1.05;
+    }
+
+    mCtx.restore();
+  }
+
+  setInterval(draw, 35);
+})();
